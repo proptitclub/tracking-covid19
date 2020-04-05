@@ -5,7 +5,7 @@ Landing page to show statistics about Covid-19 (Demo) using Flask
 
 ### Install using Mini-Conda.
 
-``` pip install -r requirments.txt ```
+``` pip install -r requirements.txt ```
 
 ### Run server.
 
