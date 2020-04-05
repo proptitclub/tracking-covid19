@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Tracking Covid-19</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        footer {
+            background-color: #f2f2f2;
+            padding: 5px;
+        }
+
+        html {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            min-height: 100%;
+            min-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <p>Cập nhật lần cuối lúc: {{time}}</p>
+            </div>
+            <div class="col-sm-4">
+                <p>Nguồn WHO.......................... </p>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div>
+            <i class="fa fa-globe fa-2x" aria-hidden="true"></i> Diễn biến dịch COVID-19 trên thế giới
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" style="text-align: center; font-size: 15px;">Tổng ca nhiễm</div>
+                    <div id="cases" class="panel-body" style="text-align: center; font-size: 15px;">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-danger">
+                    <div class="panel-heading" style="text-align: center; font-size: 15px;">Số ca tử vong</div>
+                    <div id="deaths" class="panel-body" style="text-align: center; font-size: 15px;"></div>
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-success">
+                    <div class="panel-heading" style="text-align: center; font-size: 15px;">Số ca bình phục</div>
+                    <div id="recovered" class="panel-body" style="text-align: center; font-size: 15px;"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div>
+            <i class="fa fa-globe fa-2x" aria-hidden="true"></i> Diễn biến dịch COVID-19 tại Việt Nam
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" style="text-align: center; font-size: 15px;">Ca nhiễm</div>
+                    <div class="panel-body" style="text-align: center; font-size: 15px;"> {{vn["cases"]}} </div>
+
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" style="text-align: center; font-size: 15px;">Tử vong</div>
+                    <div class="panel-body" style="text-align: center; font-size: 15px;">{{vn["deaths"]}}</div>
+
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" style="text-align: center; font-size: 15px;">Bình phục</div>
+                    <div class="panel-body" style="text-align: center; font-size: 15px;">{{vn["recovered"]}}</div>
+
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" style="text-align: center; font-size: 15px;">Đang nhiễm</div>
+                    <div class="panel-body" style="text-align: center; font-size: 15px;">{{vn["active"]}}</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Ca nhiễm</th>
+                            <th scope="col">Tử vong</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>USA</td>
+                            <td>{{result['USA_cases']}}</td>
+                            <td>{{result['USA_deaths']}}</td>
+                        </tr>
+                        <tr>
+                            <td>Italy</td>
+                            <td>{{result['Italy_cases']}}</td>
+                            <td>{{result['Italy_deaths']}}</td>
+                        </tr>
+                        <tr>
+                            <td>Anh</td>
+                            <td>{{result['UK_cases']}}</td>
+                            <td>{{result['UK_deaths']}}</td>
+                        </tr>
+                        <tr>
+                            <td>Nga</td>
+                            <td>{{result['Russia_cases']}}</td>
+                            <td>{{result['Russia_deaths']}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-6">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Ca nhiễm</th>
+                            <th scope="col">Tử vong</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tây Ban Nha</td>
+                            <td>{{result['Spain_cases']}}</td>
+                            <td>{{result['Spain_deaths']}}</td>
+                        </tr>
+                        <tr>
+                            <td>Trung Quốc</td>
+                            <td>{{result['China_cases']}}</td>
+                            <td>{{result['China_deaths']}}</td>
+                        </tr>
+                        <tr>
+                            <td>Hàn Quốc</td>
+                            <td>{{result['Korea_cases']}}</td>
+                            <td>{{result['Korea_deaths']}}</td>
+                        </tr>
+                        <tr>
+                            <td>Pháp</td>
+                            <td>{{result['France_cases']}}</td>
+                            <td>{{result['France_deaths']}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer class="container" style="margin-top: 2%;">
+        <div class="row">
+            <div class="col-sm-1">
+                <img src="/static/logo.jpg" style="width: 50px; height: 50px;">
+            </div>
+            <div class="col-sm-11" style="font-size: 25px;">
+                Covy AI Breaking News:
+            </div>
+        </div>
+        <div>
+            Số ca nhiễm tại Mexico mới tăng thêm ... chỉ trong vòng 1 ngày | Bộ y tế.....
+        </div>
+    </footer>
+</body>
+<script>
+    (function () {
+        'use strict';
+        var cases = document.getElementById('cases');
+        var deaths = document.getElementById('deaths');
+        var recovered = document.getElementById('recovered');
+
+        var min_cases = {{all_min["cases"]}} -1000;
+        var min_deaths = {{all_min["deaths"]}} -1000;
+        var min_recovered = {{all_min["recovered"]}} -1000;
+
+        var st_cases = 0;
+        var st_deaths = 0;
+        var st_recovered = 0;
+
+        var delay_cases = Math.floor(Math.random() * 150) + 150;
+        var delay_deaths = Math.floor(Math.random() * 150) + 350;
+        var delay_recovered = Math.floor(Math.random() * 100) + 400;
+        
+        countup_cases();
+        countup_deaths();
+        countup_recovered();
+        
+        function countup_cases() {
+            if (min_cases > {{all_max["cases"]}}) {
+                clearTimeout(st_cases);
+                return;
+            }
+            cases.innerHTML = min_cases;
+            min_cases++;
+            st_cases = setTimeout(countup_cases, delay_cases);
+        }
+
+        function countup_deaths() {
+            if (min_deaths > {{all_max["deaths"]}}) {
+                clearTimeout(st_deaths);
+                return;
+            }
+            deaths.innerHTML = min_deaths;
+            min_deaths++;
+            st_deaths = setTimeout(countup_deaths, delay_deaths);
+        }
+
+        function countup_recovered() {
+            if (min_recovered > {{all_max["recovered"]}}) {
+                clearTimeout(st_recovered);
+                return;
+            }
+            recovered.innerHTML = min_recovered;
+            min_recovered++;
+            st_recovered = setTimeout(countup_recovered, delay_recovered);
+        }
+
+    }());
+</script>
+</html>
